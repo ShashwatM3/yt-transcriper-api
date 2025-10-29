@@ -6,9 +6,12 @@ from dotenv import load_dotenv
 from youtube_transcript_api import YouTubeTranscriptApi
 from youtube_transcript_api.proxies import WebshareProxyConfig
 from urllib.parse import urlparse, parse_qs
+from supadata import Supadata
 
 load_dotenv()
 YOUTUBE_TRANSCRIPT_API_TOKEN = os.getenv("YOUTUBE_TRANSCRIPT_API_TOKEN")
+
+supadata = Supadata(api_key=f"{os.getenv("SUPADATA_API_KEY")}")
 
 ytt_api = YouTubeTranscriptApi(
     proxy_config=WebshareProxyConfig(
@@ -70,6 +73,10 @@ def get_video_id(url: str):
         return match.group(1)
     
     return None
+
+def get_transcript_instagram_reel(url: str):
+  transcript = supadata.transcript(url=url)
+  return transcript.content
 
 def get_transcript_v2(video_id):
   obj = ytt_api.fetch(video_id)
