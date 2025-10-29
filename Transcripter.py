@@ -76,7 +76,16 @@ def get_video_id(url: str):
 
 def get_transcript_instagram_reel(url: str):
   transcript = supadata.transcript(url=url)
-  return transcript.content
+  content = transcript.content
+  total_transcript = ""
+  for transcript_section in content:
+    total_transcript += f"{transcript_section.text} "
+  return total_transcript
+
+def get_transcript_instagram_reel_raw(url: str):
+  transcript = supadata.transcript(url=url)
+  content = transcript.content
+  return content
 
 def get_transcript_v2(video_id):
   obj = ytt_api.fetch(video_id)

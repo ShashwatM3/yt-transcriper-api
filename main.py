@@ -3,7 +3,7 @@ from fastapi.middleware.cors import CORSMiddleware
 import os
 from openai import OpenAI
 from dotenv import load_dotenv
-from Transcripter import get_video_id, get_transcript_v2, get_transcript, get_transcript_instagram_reel
+from Transcripter import get_video_id, get_transcript_v2, get_transcript, get_transcript_instagram_reel,get_transcript_instagram_reel_raw
 
 # client = OpenAI(
 #     # This is the default and can be omitted
@@ -34,4 +34,5 @@ def query(url: str = Query(..., description="Input YouTube Video URL for transcr
 @app.get("/instagram-transcript")
 def query2(url: str = Query(..., description="Input Instagram Reel URL for transcription")):
     transcript = get_transcript_instagram_reel(url)
+    # transcript = get_transcript_instagram_reel_raw(url)
     return {"reel_url": url, "transcript": transcript}
