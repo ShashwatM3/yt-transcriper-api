@@ -4,15 +4,24 @@ import json
 import os
 from dotenv import load_dotenv
 from youtube_transcript_api import YouTubeTranscriptApi
+from youtube_transcript_api.proxies import WebshareProxyConfig
 from urllib.parse import urlparse, parse_qs
 
-ytt_api = YouTubeTranscriptApi()
+load_dotenv()
+YOUTUBE_TRANSCRIPT_API_TOKEN = os.getenv("YOUTUBE_TRANSCRIPT_API_TOKEN")
+
+ytt_api = YouTubeTranscriptApi(
+    proxy_config=WebshareProxyConfig(
+        proxy_username="nlgdkwab",
+        proxy_password="nty0f4tbta29",
+    )
+)
 
 def get_transcript(id):
   response = requests.post(
   "https://www.youtube-transcript.io/api/transcripts",
     headers={
-      "Authorization": f"Basic {apitoken}",
+      "Authorization": f"Basic {YOUTUBE_TRANSCRIPT_API_TOKEN}",
       "Content-Type": "application/json"
     },
     json={"ids": [id]}

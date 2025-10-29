@@ -3,7 +3,7 @@ from fastapi.middleware.cors import CORSMiddleware
 import os
 from openai import OpenAI
 from dotenv import load_dotenv
-from Transcripter import get_video_id, get_transcript_v2
+from Transcripter import get_video_id, get_transcript_v2, get_transcript
 
 # client = OpenAI(
 #     # This is the default and can be omitted
@@ -27,5 +27,6 @@ def read_root():
 @app.get("/transcript")
 def query(url: str = Query(..., description="Input YouTube Video URL for transcription")):
     video_id = get_video_id(url)
-    transcript = get_transcript_v2(video_id)
+    # transcript = get_transcript_v2(video_id)
+    transcript = get_transcript(video_id)
     return {"video_id": video_id, "transcript": transcript}
