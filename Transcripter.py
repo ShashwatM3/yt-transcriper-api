@@ -74,7 +74,7 @@ def get_video_id(url: str):
     
     return None
 
-def get_transcript_instagram_reel(url: str):
+def get_transcript_anything(url: str):
   transcript = supadata.transcript(url=url)
   content = transcript.content
   total_transcript = ""
